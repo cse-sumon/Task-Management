@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagementAPI.Helpers;
@@ -97,6 +98,7 @@ namespace TaskManagementAPI.Controllers
         // POST: {apibaseurl}/api/auth/register
         [HttpGet]
         [Route("GetAllUsers")]
+        [Authorize(Roles = RolesName.Admin)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
