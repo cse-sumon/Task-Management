@@ -118,7 +118,7 @@ namespace TaskManagementAPI.Repositories.Implementation
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials);
 
             // Return Token
