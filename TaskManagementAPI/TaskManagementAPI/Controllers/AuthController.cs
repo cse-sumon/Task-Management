@@ -94,5 +94,28 @@ namespace TaskManagementAPI.Controllers
         }
 
 
+        // POST: {apibaseurl}/api/auth/register
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                
+               var users = await _authRepository.GetAllUsers();
+                if(users is not null)
+                     return Ok(users);
+
+                return Ok(null);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Azure;
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TaskManagementAPI.Data;
 using TaskManagementAPI.Models.Domain;
 using TaskManagementAPI.Models.DTO;
 using TaskManagementAPI.Repositories.Interface;
@@ -16,15 +18,18 @@ namespace TaskManagementAPI.Repositories.Implementation
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly AuthDbContext _authContext;
 
 
         private readonly IConfiguration configuration;
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AuthRepository(UserManager<ApplicationUser> userManager, IConfiguration configuration, AuthDbContext authContext)
         {
             _userManager = userManager;
             _configuration = configuration;
-          
+            _authContext = authContext;
+
+
         }
 
 
@@ -119,6 +124,22 @@ namespace TaskManagementAPI.Repositories.Implementation
             // Return Token
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
+
+        public async Task<IEnumerable<UserDto>> GetAllUsers()
+        {
+            var users = await _userManager.Users.AsNoTracking().ToListAsync();
+            return users.Select(x => new UserDto
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                UserName = x.UserName,
+
+            }).ToList();
+
+        }
+
 
 
     }

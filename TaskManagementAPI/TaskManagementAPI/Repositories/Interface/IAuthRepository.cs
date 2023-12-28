@@ -10,5 +10,8 @@ namespace TaskManagementAPI.Repositories.Interface
 
         Task<LoginResponseDto> Login(LoginRequestDto loginDto);
 
+
+        Task<IEnumerable<UserDto>> GetAllUsers();
+
     }
 }
