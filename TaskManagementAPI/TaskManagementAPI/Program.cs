@@ -78,8 +78,13 @@ builder.Services.AddCors(options =>
 });
 
 
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+
 // Service Register
 builder.Services.AddTransient<IAuthRepository, AuthRepository>();
+builder.Services.AddTransient<ITaskRepository, TaskRepository>();
 
 
 var app = builder.Build();
