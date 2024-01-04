@@ -18,16 +18,14 @@ namespace TaskManagementAPI.Repositories.Implementation
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly AuthDbContext _authContext;
 
 
         private readonly IConfiguration configuration;
 
-        public AuthRepository(UserManager<ApplicationUser> userManager, IConfiguration configuration, AuthDbContext authContext)
+        public AuthRepository(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
-            _authContext = authContext;
 
 
         }
@@ -64,23 +62,23 @@ namespace TaskManagementAPI.Repositories.Implementation
         {
             var response = new LoginResponseDto();
 
-            var identityUser = await _userManager.FindByEmailAsync(loginDto.Email);
+            var applicationUser = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            if (identityUser is not null)
+            if (applicationUser is not null)
             {
                 // Check Password
-                var checkPasswordResult = await _userManager.CheckPasswordAsync(identityUser, loginDto.Password);
+                var checkPasswordResult = await _userManager.CheckPasswordAsync(applicationUser, loginDto.Password);
 
                 if (checkPasswordResult)
                 {
-                    var roles = await _userManager.GetRolesAsync(identityUser);
+                    var roles = await _userManager.GetRolesAsync(applicationUser);
 
                     // Create a Token and Response
-                    var jwtToken = CreateJwtToken(identityUser, roles.ToList());
+                    var jwtToken = CreateJwtToken(applicationUser, roles.ToList());
 
 
-                    response.FullName = identityUser.FullName;
-                    response.Email = identityUser.Email;
+                    response.FullName = applicationUser.FullName;
+                    response.Email = applicationUser.Email;
                     response.Roles = roles.ToList();
                     response.Token = jwtToken;
 
@@ -99,12 +97,13 @@ namespace TaskManagementAPI.Repositories.Implementation
 
 
 
-        public string CreateJwtToken(IdentityUser user, List<string> roles)
+        public string CreateJwtToken(ApplicationUser user, List<string> roles)
         {
             // Create Claims
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("UserId", user.Id)
             };
 
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));

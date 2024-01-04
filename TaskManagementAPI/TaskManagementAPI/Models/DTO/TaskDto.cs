@@ -14,12 +14,12 @@
 
         public required string Status { get; set; }
 
-        public required string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
-        public required string CreatedByName { get; set; }
+        public string? CreatedByName { get; set; }
 
-        public required string AssignedTo { get; set; }
+        public string? AssignedTo { get; set; }
 
-        public required string AssignedToName { get; set; }
+        public string? AssignedToName { get; set; }
     }
 }

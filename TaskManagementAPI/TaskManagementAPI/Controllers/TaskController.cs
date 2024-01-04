@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using TaskManagementAPI.Models.Domain;
 using TaskManagementAPI.Models.DTO;
 using TaskManagementAPI.Repositories.Interface;
 
@@ -12,15 +16,18 @@ namespace TaskManagementAPI.Controllers
     {
         private readonly ITaskRepository _taskRepository;
         private readonly ILogger<TaskController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TaskController(ITaskRepository taskRepository, ILogger<TaskController> logger)
+        public TaskController(ITaskRepository taskRepository, ILogger<TaskController> logger, UserManager<ApplicationUser> userManager)
         {
             _taskRepository = taskRepository;
             _logger = logger;
+            _userManager = userManager;
 
         }
 
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllTasks()
         {
@@ -35,6 +42,8 @@ namespace TaskManagementAPI.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetTaskById(int id)
         {
@@ -55,6 +64,7 @@ namespace TaskManagementAPI.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> CreateTask(TaskDto model)
         {
@@ -62,6 +72,12 @@ namespace TaskManagementAPI.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest();
+
+
+                string userId = User.Claims.First(c => c.Type == "UserId").Value;
+                var applicationUser = await _userManager.FindByIdAsync(userId);
+
+                model.CreatedBy = applicationUser?.Id;
 
                 await _taskRepository.InsertTask(model);
 
@@ -75,6 +91,7 @@ namespace TaskManagementAPI.Controllers
         }
 
 
+        [Authorize]
         [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateTask(int id, TaskDto model)
         {
@@ -106,7 +123,7 @@ namespace TaskManagementAPI.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteTask(int id)
         {

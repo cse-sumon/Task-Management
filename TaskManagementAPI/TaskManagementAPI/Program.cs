@@ -24,16 +24,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagementConnectionString"));
 });
 
-builder.Services.AddDbContext<AuthDbContext>(options => {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagementConnectionString"));
-});
-
 
 // add identity wtih roles
 builder.Services.AddIdentityCore<ApplicationUser>()
     .AddRoles<IdentityRole>()
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("TaskManagement")
-    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
