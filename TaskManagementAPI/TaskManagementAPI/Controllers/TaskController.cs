@@ -33,6 +33,7 @@ namespace TaskManagementAPI.Controllers
         {
             try
             {
+                _logger.LogInformation("TaskController");
                 return Ok(await _taskRepository.GetAllTask());
             }
             catch (Exception ex)

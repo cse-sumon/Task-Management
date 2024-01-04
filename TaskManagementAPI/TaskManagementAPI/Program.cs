@@ -7,6 +7,7 @@ using TaskManagementAPI.Data;
 using TaskManagementAPI.Models.Domain;
 using TaskManagementAPI.Repositories.Implementation;
 using TaskManagementAPI.Repositories.Interface;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,8 +75,12 @@ builder.Services.AddCors(options =>
 });
 
 
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
+
+//Serilog
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 
 // Service Register
@@ -91,6 +96,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
