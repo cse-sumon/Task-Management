@@ -38,7 +38,7 @@ namespace TaskManagementAPI.Controllers
                     }
                 }
 
-                return Unauthorized("Email or Password Incorrect");
+                return BadRequest("Email or Password Incorrect");
 
             }
             catch (Exception ex)
