@@ -1,0 +1,20 @@
+ .login-container {
+    height: 100vh;
+  }
+  
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+.btnSubmit{
+ 
+   margin-top: 20px;
+}
+
+
+  
