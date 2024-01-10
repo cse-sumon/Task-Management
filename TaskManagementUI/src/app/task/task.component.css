@@ -11,13 +11,42 @@
 
 .gridDone{
     border: 1px solid silver;
+    
 }
 
 .task-box{
     border-bottom: 1px solid silver;
     padding: 10px;
-    background: rgb(205, 221, 213);
+    background: rgb(228, 233, 230);
 }
 ul li{
     list-style: none;
+}
+
+.Low{
+    color: rgb(17, 173, 77);
+    font-weight: bold;
+}
+
+.Medium{
+    color: blue;
+    font-weight: bold;
+}
+
+.High{
+    color: Red;
+    font-weight: bold;
+}
+
+b{
+    font-size: 12px;
+}
+
+li{
+    font-size: 14px;
+    color: black;
+}
+
+.addbutton{
+    margin: 10px 0px 10px 0px;
 }

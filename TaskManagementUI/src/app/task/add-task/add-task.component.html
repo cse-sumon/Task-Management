@@ -1,1 +1,11 @@
-<p>add-task works!</p>
+<h1 mat-dialog-title>{{service.formTitle}} </h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onSubmit()">{{service.buttonName}}</button>
+</div>
