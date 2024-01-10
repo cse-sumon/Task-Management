@@ -7,6 +7,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TaskComponent } from './task/task.component';
 
 const routes: Routes = [
 
@@ -20,11 +21,15 @@ const routes: Routes = [
   },
 
 
-  {path:'home',component:HomeComponent, canActivate:[AuthGuard]},
+  {path:'home',component:HomeComponent, canActivate:[AuthGuard],
+  children:[
+    {path:'task', component:TaskComponent, canActivate:[AuthGuard]}
+    
+  ]},
+
+
   {path:'forbidden',component:ForbiddenComponent},
 
-
-  
   {path:'**',component:PageNotFoundComponent},
 
 

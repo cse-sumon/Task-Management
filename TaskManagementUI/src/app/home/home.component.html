@@ -3,11 +3,9 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar class="sidebarMenu">Dashboard</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item routerLink="task">Task</a>
       
     </mat-nav-list>
     <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
@@ -24,8 +22,13 @@
         
         </button>
       }
-      <span>TaskManagementUI</span>
+      <span>Task Management</span>
     </mat-toolbar>
     <!-- Add Content Here -->
+
+     <div style="margin: 5px;">
+      <router-outlet></router-outlet>
+     </div>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

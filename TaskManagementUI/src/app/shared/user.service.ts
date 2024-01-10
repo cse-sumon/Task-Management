@@ -8,17 +8,15 @@ import { environment } from '../../environments/environment.development';
 })
 export class UserService {
 
-  
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   readonly BaseURI = environment.apiURL;
 
   formModel = this.fb.group({
-    UserName: ['', Validators.required],
     Email: ['', Validators.email],
-    FullName: [''],
+    FullName: ['', Validators.required],
     Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(4)]],
+      Password: ['', [Validators.required, Validators.minLength(6), ]],
       ConfirmPassword: ['', Validators.required]
     }, { validator: this.comparePasswords })
 
@@ -38,9 +36,8 @@ export class UserService {
 
   register() {
     var body = {
-      UserName: this.formModel.value.UserName,
-      Email: this.formModel.value.Email,
       FullName: this.formModel.value.FullName,
+      Email: this.formModel.value.Email,
       Password: this.formModel.value.Passwords.Password
     };
     return this.http.post(this.BaseURI + '/Auth/Register', body);
@@ -51,7 +48,7 @@ export class UserService {
   }
 
   getUserProfile() {
-    return this.http.get(this.BaseURI + '/UserProfile');
+    return this.http.get(this.BaseURI + '/Auth/UserProfile');
   }
 
 

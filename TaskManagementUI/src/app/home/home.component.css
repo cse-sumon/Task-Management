@@ -4,6 +4,7 @@
 
 .sidenav {
   width: 200px;
+
 }
 
 .sidenav .mat-toolbar {
@@ -15,3 +16,10 @@
   top: 0;
   z-index: 1;
 }
+
+.sidebarMenu{
+  background-color: #3f51b5 !important;
+  color:white;
+}
+
+

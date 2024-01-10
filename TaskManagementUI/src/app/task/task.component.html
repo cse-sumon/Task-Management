@@ -1,0 +1,30 @@
+<div class="task">
+    <div class="task-head">
+<h1>Task</h1>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-4 gridTodo">
+                <h1>Todo</h1><hr>
+
+                <ul *ngFor="let task of tasks" class="task-box">
+                    <li>Task No: {{task.id}}</li>
+                    <li>Task Title: {{task.title}}</li>
+                    <li>Description: {{task.description}}</li>
+                    <li>Due Date: {{task.dueDate | date}}</li>
+                    <li>Priority: {{task.priority}}</li>
+                    <li>AssignTo: {{task.assignedToName}}</li>
+                </ul>
+
+            </div>
+            <div class="col-4 gridProgress">
+                <h1>In Progress</h1><hr>
+            </div>
+            <div class="col-4 gridDone">
+                <h1>Done</h1><hr>
+            </div>
+        </div>
+    </div>
+
+
+</div>

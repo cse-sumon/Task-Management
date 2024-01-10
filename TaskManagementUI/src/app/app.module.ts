@@ -17,9 +17,12 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserService } from './shared/user.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ForbiddenComponent,
     RegistrationComponent,
     PageNotFoundComponent,
+    TaskComponent,
+    AddTaskComponent,
 
   ],
   imports: [
@@ -48,12 +53,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
     
     ToastrModule.forRoot({
-      progressBar: true
+      progressBar: true,
+      timeOut: 2000,
+      preventDuplicates: true,
     }),
   ],
-  providers: [
-    UserService,
-  ],
+  providers: [UserService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

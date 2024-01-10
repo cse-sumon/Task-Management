@@ -1,0 +1,23 @@
+.gridTodo{
+    margin-right: 2px solid silver;
+    border: 1px solid silver;
+}
+
+.gridProgress{
+    margin-right: 2px solid silver;
+    border: 1px solid silver;
+}
+
+
+.gridDone{
+    border: 1px solid silver;
+}
+
+.task-box{
+    border-bottom: 1px solid silver;
+    padding: 10px;
+    background: rgb(205, 221, 213);
+}
+ul li{
+    list-style: none;
+}
