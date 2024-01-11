@@ -98,7 +98,7 @@ namespace TaskManagementAPI.Controllers
         // POST: {apibaseurl}/api/auth/register
         [HttpGet]
         [Route("GetAllUsers")]
-        [Authorize(Roles = RolesName.Admin)]
+        [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             try

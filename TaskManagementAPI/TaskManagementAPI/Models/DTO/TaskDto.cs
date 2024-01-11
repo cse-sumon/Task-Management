@@ -18,7 +18,7 @@
 
         public string? CreatedByName { get; set; }
 
-        public string? AssignedTo { get; set; }
+        public string AssignedTo { get; set; }
 
         public string? AssignedToName { get; set; }
     }
