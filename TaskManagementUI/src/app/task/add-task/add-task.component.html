@@ -1,11 +1,83 @@
-<h1 mat-dialog-title>{{service.formTitle}} </h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-  </mat-form-field>
+
+
+
+<!-- add-task.component.html -->
+<div class="container mt-5">
+  <h1 style="color:blue">{{service.formTitle}} </h1><hr>
+  <form [formGroup]="service.taskForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+ 
+     
+      <input type="hidden" id="id" formControlName="id" class="form-control">
+    
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" id="title" formControlName="title" class="form-control" required>
+      <div class="invalid-feedback" *ngIf="service.taskForm.get('title').hasError('required') && service.taskForm.get('title').touched">
+        Title is required.
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="mb-3 col-6">
+      <label for="dueDate" class="form-label">Due Date:</label>
+      <input type="date" id="dueDate" formControlName="dueDate" class="form-control" required>
+      <div class="invalid-feedback" *ngIf="service.taskForm.get('dueDate').hasError('required') && service.taskForm.get('dueDate').touched">
+        Due Date is required.
+      </div>
+
+    </div>
+
+    <div class="mb-3 col-6">
+      <label for="priority" class="form-label">Priority:</label>
+      <select id="priority" class="form-select" aria-label="Default select example"  formControlName="priority" class="form-control" required>
+        <option *ngFor="let item of priorityList" [value]="item.id">{{ item.name }}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="service.taskForm.get('priority').hasError('required') && service.taskForm.get('priority').touched">
+        Priority is required.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="mb-3 col-6">
+        <label for="status" class="form-label">Status:</label>
+        <select id="status" class="form-select" aria-label="Default select example"  formControlName="status" class="form-control" required>
+          <option *ngFor="let item of statusList" [value]="item.id">{{ item.name }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="service.taskForm.get('status').hasError('required') && service.taskForm.get('status').touched">
+          Status is required.
+        </div>
+
+      </div>
+
+      <div class="mb-3 col-6">
+        <label for="assignedTo" class="form-label">Assigned To:</label>
+        <select id="assignedTo" class="form-select" aria-label="Default select example"  formControlName="assignedTo" class="form-control" required>
+          <option *ngFor="let item of userList" [value]="item.id">{{ item.fullName +" - "+ item.userName }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="service.taskForm.get('assignedTo').hasError('required') && service.taskForm.get('assignedTo').touched">
+          Assigned To is required.
+        </div>
+      </div>
+  </div>
+
+  
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description:</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-12" style="float: center;">
+        <button class="btn btn-warning" (click)="onNoClick()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!service.taskForm.valid">Submit</button>
+      </div>
+    </div>
+    <br>
+    
+  </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="onSubmit()">{{service.buttonName}}</button>
-</div>
+

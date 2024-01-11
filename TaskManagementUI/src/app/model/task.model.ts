@@ -34,3 +34,13 @@ export class Task {
     //   this.assignedToName = assignedToName;
     // }
   }
+
+  export class DropdownList{
+    public id:string;
+    public name:string;
+
+    constructor(id: string, name: string) {
+      this.id = id;
+      this.name = name;
+    }
+  }

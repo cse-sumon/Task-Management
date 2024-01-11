@@ -36,6 +36,7 @@ export class TaskComponent {
     this.service.getAllTask().subscribe(
       res => {
         this.tasks = <Task[]>res;
+        // console.log(res);
 
         // Clear existing task arrays
         this.PendingTasks = [];
@@ -125,7 +126,7 @@ openAddNewDialog(): void {
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.width = "50%";
-  dialogConfig.height = "50%";
+  dialogConfig.height = "530px";
   const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {

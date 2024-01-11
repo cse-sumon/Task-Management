@@ -47,8 +47,8 @@ export class UserService {
     return this.http.post(this.BaseURI + '/Auth/Login', formData);
   }
 
-  getUserProfile() {
-    return this.http.get(this.BaseURI + '/Auth/UserProfile');
+  getAllUsers() {
+    return this.http.get(this.BaseURI + '/Auth/GetAllUsers');
   }
 
 
