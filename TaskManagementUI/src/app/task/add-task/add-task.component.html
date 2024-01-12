@@ -13,18 +13,20 @@
     <div class="mb-3">
       <label for="title" class="form-label">Title:</label>
       <input type="text" id="title" formControlName="title" class="form-control" required>
-      <div class="invalid-feedback" *ngIf="service.taskForm.get('title').hasError('required') && service.taskForm.get('title').touched">
+      <div class="text-danger" *ngIf="service.taskForm.get('title').hasError('required') && service.taskForm.get('title').touched">
         Title is required.
       </div>
+
     </div>
 
   <div class="row">
     <div class="mb-3 col-6">
       <label for="dueDate" class="form-label">Due Date:</label>
       <input type="date" id="dueDate" formControlName="dueDate" class="form-control" required>
-      <div class="invalid-feedback" *ngIf="service.taskForm.get('dueDate').hasError('required') && service.taskForm.get('dueDate').touched">
+      <div class="text-danger" *ngIf="service.taskForm.get('dueDate').hasError('required') && service.taskForm.get('dueDate').touched">
         Due Date is required.
       </div>
+
 
     </div>
 
@@ -33,7 +35,7 @@
       <select id="priority" class="form-select" aria-label="Default select example"  formControlName="priority" class="form-control" required>
         <option *ngFor="let item of priorityList" [value]="item.id">{{ item.name }}</option>
       </select>
-      <div class="invalid-feedback" *ngIf="service.taskForm.get('priority').hasError('required') && service.taskForm.get('priority').touched">
+      <div class="text-danger" *ngIf="service.taskForm.get('priority').hasError('required') && service.taskForm.get('priority').touched">
         Priority is required.
       </div>
 
@@ -46,7 +48,7 @@
         <select id="status" class="form-select" aria-label="Default select example"  formControlName="status" class="form-control" required>
           <option *ngFor="let item of statusList" [value]="item.id">{{ item.name }}</option>
         </select>
-        <div class="invalid-feedback" *ngIf="service.taskForm.get('status').hasError('required') && service.taskForm.get('status').touched">
+        <div class="text-danger" *ngIf="service.taskForm.get('status').hasError('required') && service.taskForm.get('status').touched">
           Status is required.
         </div>
 
@@ -57,7 +59,7 @@
         <select id="assignedTo" class="form-select" aria-label="Default select example"  formControlName="assignedTo" class="form-control" required>
           <option *ngFor="let item of userList" [value]="item.id">{{ item.fullName +" - "+ item.userName }}</option>
         </select>
-        <div class="invalid-feedback" *ngIf="service.taskForm.get('assignedTo').hasError('required') && service.taskForm.get('assignedTo').touched">
+        <div class="text-danger" *ngIf="service.taskForm.get('assignedTo').hasError('required') && service.taskForm.get('assignedTo').touched">
           Assigned To is required.
         </div>
       </div>
