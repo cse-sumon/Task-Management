@@ -4,6 +4,7 @@ import { Task } from '../model/task.model';
 import { Status } from '../model/status.enum';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class TaskComponent {
   CompletedTasks: Task[] = [];
 
 
-  constructor(private service: TaskService, public dialog: MatDialog) {
+  constructor(private service: TaskService, public dialog: MatDialog, private toastr: ToastrService) {
 
   }
 
@@ -49,7 +50,7 @@ export class TaskComponent {
             case 'Pending':
               this.PendingTasks.push(task);
               break;
-            case 'In Progress':
+            case 'InProgress':
               this.InProgressTasks.push(task);
               break;
             case 'Completed':
@@ -74,7 +75,7 @@ export class TaskComponent {
 
         if (this.task != null) {
           this.task.status = Status.InProgress;
-          this.updateTask(id, this.task);
+          this.updateStatus(id, this.task);
         }
       },
       err => {
@@ -91,7 +92,7 @@ export class TaskComponent {
 
         if (this.task != null) {
           this.task.status = Status.Completed;
-          this.updateTask(id, this.task);
+          this.updateStatus(id, this.task);
         }
       },
       err => {
@@ -101,7 +102,7 @@ export class TaskComponent {
   }
 
 
-  updateTask(id: number, task: Task) {
+  updateStatus(id: number, task: Task) {
     this.service.updateTask(id, task).subscribe(
       res => {
         this.getAllTask();
@@ -114,6 +115,44 @@ export class TaskComponent {
   }
 
 
+  EditTask(task:any){
+    this.service.populateForm(task);
+   
+    this.service.formTitle = "Update Task"
+    this.service.buttonName = "Update"
+  
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "700px";
+    dialogConfig.height = "500px";
+    const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.ngOnInit()
+    });
+
+  }
+
+
+
+
+  DeleteTask(id:number){
+    let con = confirm("Are you sure to delete this one")
+    if(con){
+      this.service.deleteTask(id).subscribe(
+        res=>{
+          this.toastr.warning("Task Deleted Successfully", "Task Deleted!")
+         this.getAllTask();
+        },
+        err=>{
+          console.log(err);
+        },
+      )
+
+    }
+  }
 
 
 //Add New Dialog
@@ -125,8 +164,8 @@ openAddNewDialog(): void {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
-  dialogConfig.width = "50%";
-  dialogConfig.height = "530px";
+  dialogConfig.width = "700px";
+  dialogConfig.height = "500px";
   const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {

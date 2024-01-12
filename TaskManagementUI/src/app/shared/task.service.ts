@@ -31,6 +31,10 @@ export class TaskService {
   });
 
 
+  populateForm(task:any) {
+    this.taskForm.setValue(task);
+  }
+
 
   getAllTask(){
     return this.http.get(this.BaseURI + '/Task');
@@ -47,6 +51,10 @@ export class TaskService {
 
   updateTask(id:number, task:Task){
     return this.http.put(this.BaseURI + '/Task/'+id, task);
+  }
+
+  deleteTask(id:number){
+    return this.http.delete(this.BaseURI + '/Task/' + id);
   }
 
 

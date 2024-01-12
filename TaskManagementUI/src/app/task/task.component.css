@@ -24,18 +24,18 @@ ul li{
 }
 
 .Low{
-    color: rgb(17, 173, 77);
-    font-weight: bold;
+    color: rgb(185, 13, 142);
+    font-size: 14px;
 }
 
 .Medium{
-    color: blue;
-    font-weight: bold;
+    color: rgb(36, 19, 192);
+    font-size: 14px;
 }
 
 .High{
     color: Red;
-    font-weight: bold;
+    font-size: 14px;
 }
 
 b{

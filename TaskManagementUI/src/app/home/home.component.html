@@ -8,7 +8,7 @@
       <a mat-list-item routerLink="task">Task</a>
       
     </mat-nav-list>
-    <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+    
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -21,8 +21,11 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         
         </button>
+       
       }
       <span>Task Management</span>
+      <span class="example-spacer"></span>
+      <button mat-raised-button color="accent" (click)="onLogout()">Logout</button>
     </mat-toolbar>
     <!-- Add Content Here -->
 
@@ -32,3 +35,5 @@
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+

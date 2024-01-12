@@ -64,17 +64,29 @@ ngOnInit(): void {
           assignedTo: this.service.taskForm.get('assignedTo').value,
           description: this.service.taskForm.get('description').value,
          }
-         console.log(task);
-          this.service.AddTask(task).subscribe(
-          res=>{
-            this.toastr.success("New Task created!", "Task Added Successfully");
-            this.dialogRef.close();
-            this.ngOnInit();
-          },
-          err=>{
-            console.log(err);
-          },
-        )
+        //  console.log(task);
+       
+        let id = this.service.taskForm.get('id').value;
+        if(id == null || id == ""){
+          this.InsertTask(task);
+        }
+        else{
+          id = this.service.taskForm.get('id').value;
+          let task = {
+            id: this.service.taskForm.get('id').value,
+            title: this.service.taskForm.get('title').value,
+            dueDate: this.service.taskForm.get('dueDate').value,
+            priority: this.service.taskForm.get('priority').value,
+            status: this.service.taskForm.get('status').value,
+            assignedTo: this.service.taskForm.get('assignedTo').value,
+            description: this.service.taskForm.get('description').value,
+            assignedToName: this.service.taskForm.get('assignedToName').value,
+            createdByName: this.service.taskForm.get('createdByName').value,
+            createdBy: this.service.taskForm.get('createdBy').value,
+           }
+
+           this.UpdateTask(id,task);
+        }
   
         
       } else {
@@ -82,6 +94,35 @@ ngOnInit(): void {
       }
     }
 
+
+    InsertTask(task:any){
+      this.service.AddTask(task).subscribe(
+        res=>{
+          this.toastr.success("New Task created!", "Task Added Successfully");
+          this.service.taskForm.reset();
+          this.dialogRef.close();
+          this.ngOnInit();
+        },
+        err=>{
+          console.log(err);
+        },
+      )
+    }
+
+
+    UpdateTask(id:number, task:any){
+      this.service.updateTask(id, task).subscribe(
+        res=>{
+          this.toastr.success("Task Updated!", "Task Updated Successfully");
+          this.service.taskForm.reset();
+          this.dialogRef.close();
+          this.ngOnInit();
+        },
+        err=>{
+          console.log(err);
+        },
+      )
+    }
 
     getAllUsers(){
       this.userService.getAllUsers().subscribe(

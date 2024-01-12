@@ -1,7 +1,13 @@
 <div class="task">
     <div class="task-head">
-        <div class="addbutton">
-            <button mat-raised-button color="primary" (click)="openAddNewDialog()">Add New Task</button>
+        <div class="row">
+            <div class="col-6 addbutton">
+                <button mat-raised-button color="primary" (click)="openAddNewDialog()">Add New Task</button>
+            </div>
+    
+            <div class="col-6">
+                <span style="font-size: 16px;float: right; padding-right: 10px;">Total Task: <b style="color: red;">{{tasks.length}}</b></span>
+            </div>
         </div>
         
 
@@ -9,7 +15,7 @@
     <div class="body">
         <div class="row">
             <div class="col-4 gridTodo">
-                <h1>Todo</h1><hr>
+                <h2 style="text-align: center;">Todo <span style="font-size: 14px;float: right; padding-right: 10px;">( <b style="color: red;">{{PendingTasks.length}}</b> )</span></h2><hr>
 
                 <ul *ngFor="let task of PendingTasks" class="task-box">
                     <li><b>Task No: </b> {{task.id}}</li>
@@ -20,8 +26,10 @@
                     <li><b>AssignTo: </b> {{task.assignedToName}}</li>
                     <br>
                     <li>
-                        <button mat-raised-button color="accent"><mat-icon>edit</mat-icon>Edit</button>
-                        <button mat-raised-button color="primary" style="float: right;" (click)="moveToInProgress(task.id)">Move to Progress >> </button>
+                        <button mat-mini-fab color="accent" class="me-2" (click)="EditTask(task)"><mat-icon>edit</mat-icon></button>
+                        <button mat-mini-fab color="warn" (click)="DeleteTask(task.id)"><mat-icon>delete</mat-icon></button>
+
+                        <button mat-raised-button color="basic" style="float: right;" (click)="moveToInProgress(task.id)">Move to Progress >> </button>
                     </li>
                 </ul>
                 <br>
@@ -29,7 +37,8 @@
 
             </div>
             <div class="col-4 gridProgress">
-                <h1>In Progress</h1><hr>
+                <h2 style="text-align: center;">In Progress <span style="font-size: 14px;float: right; padding-right: 10px;">( <b style="color: red;">{{InProgressTasks.length}}</b> )</span></h2><hr>
+
                 <ul *ngFor="let task of InProgressTasks" class="task-box">
                     <li><b>Task No: </b> {{task.id}}</li>
                     <li><b>Task Title: </b> {{task.title}}</li>
@@ -39,14 +48,17 @@
                     <li><b>AssignTo: </b> {{task.assignedToName}}</li>
                     <br>
                     <li>
-                        <button mat-raised-button color="accent"><mat-icon>edit</mat-icon>Edit</button>
-                        <button mat-raised-button color="primary" style="float: right;" (click)="moveToCompleted(task.id)">Move to Completed >> </button>
+                        <button mat-mini-fab color="accent" class="me-2" (click)="EditTask(task)"><mat-icon>edit</mat-icon></button>
+                        <button mat-mini-fab color="warn" (click)="DeleteTask(task.id)"><mat-icon>delete</mat-icon></button>
+
+                        <button mat-raised-button color="basic" style="float: right;" (click)="moveToCompleted(task.id)">Move to Completed >> </button>
                     </li>
                 </ul>
                 <br>
             </div>
             <div class="col-4 gridDone">
-                <h1>Completed</h1><hr>
+                <h2 style="text-align: center;">Completed <span style="font-size: 14px;float: right; padding-right: 10px;">( <b style="color: red;">{{CompletedTasks.length}}</b> )</span></h2><hr>
+
                 <ul *ngFor="let task of CompletedTasks" class="task-box">
                     <li><b>Task No: </b> {{task.id}}</li>
                     <li><b>Task Title: </b> {{task.title}}</li>

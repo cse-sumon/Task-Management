@@ -2,7 +2,7 @@
 
 
 <!-- add-task.component.html -->
-<div class="container mt-5">
+<div class="container mt-3">
   <h1 style="color:blue">{{service.formTitle}} </h1><hr>
   <form [formGroup]="service.taskForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
  
@@ -70,13 +70,15 @@
       <textarea id="description" formControlName="description" class="form-control"></textarea>
     </div>
 
+
     <div class="row">
-      <div class="col-12" style="float: center;">
-        <button class="btn btn-warning" (click)="onNoClick()">Cancel</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!service.taskForm.valid">Submit</button>
+      <div class="col-12 d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" type="reset" (click)="onNoClick()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!service.taskForm.valid">{{service.buttonName}}</button>
       </div>
     </div>
-    <br>
+
+    
     
   </form>
 </div>

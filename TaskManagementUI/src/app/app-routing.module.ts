@@ -23,8 +23,9 @@ const routes: Routes = [
 
   {path:'home',component:HomeComponent, canActivate:[AuthGuard],
   children:[
+    {path:'', redirectTo:'/home/task', pathMatch:'full'},
+
     {path:'task', component:TaskComponent, canActivate:[AuthGuard]}
-    
   ]},
 
 
