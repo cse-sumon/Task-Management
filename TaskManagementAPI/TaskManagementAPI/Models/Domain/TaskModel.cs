@@ -11,7 +11,7 @@ namespace TaskManagementAPI.Models.Domain
 
         public string? Description { get; set; }
 
-        public required DateTime DueDate { get; set; }
+        public required DateOnly DueDate { get; set; }
 
         public required string Priority { get; set; }
 
