@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
+  currentUser=  localStorage.getItem('user');
   constructor(private service:UserService, private router:Router) { }
 
   
@@ -22,6 +23,9 @@ export class HomeComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+
+
 
 
     onLogout(){

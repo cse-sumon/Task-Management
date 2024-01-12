@@ -73,8 +73,10 @@
 
     <div class="row">
       <div class="col-12 d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" type="reset" (click)="onNoClick()">Cancel</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!service.taskForm.valid">{{service.buttonName}}</button>
+        <!-- <button class="btn btn-secondary me-2" type="reset" (click)="onNoClick()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!service.taskForm.valid">{{service.buttonName}}</button> -->
+        <button mat-raised-button color="accent" class="me-2" type="reset" (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit"  [disabled]="!service.taskForm.valid">{{service.buttonName}}</button>
       </div>
     </div>
 

@@ -25,6 +25,7 @@ export class LoginComponent {
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {
+        localStorage.setItem('user', res.fullName);
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('/home');
       },
